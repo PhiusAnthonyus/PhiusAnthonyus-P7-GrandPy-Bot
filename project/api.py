@@ -48,18 +48,22 @@ class ApiGoogleMaps:
                     print(content)
                     return content
                 else:
-                    return f"Je ne sais pas où se trouve {self.api_googlemaps_keyword} mon poussin, pourrais-tu m'en dire plus ?"
+                    return f"Je ne sais pas où se trouve {self.api_googlemaps_keyword} mon poussin, pourrais-tu m'en " \
+                           f"dire plus ? "
 
     def get_map(self):
         address = self.api_googlemaps_content
         address = address.replace(" ", "+")
         print(address)
-        image = f"https://maps.googleapis.com/maps/api/staticmap?center={address}&zoom=13&" \
+        if address != "Je+ne+sais+pas+où+se+trouve+OpenClassrooms+mon+poussin,+pourrais-tu+m'en+dire+plus+?":
+            image = f"https://maps.googleapis.com/maps/api/staticmap?center={address}&zoom=13&" \
                 f"size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147," \
                 f"-74.015794&markers=color:green%7Clabel:G%7C40.711614," \
                 f"-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key={api_key}"
-        print(image)
-        return image
+            print(image)
+            return image
+        else:
+            return "none"
 
 
 if __name__ == "__main__":
