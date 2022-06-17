@@ -5,7 +5,7 @@ header {
     position: fixed;
     z-index: 10;
     background-color: #CCCCCC;
-    box-shadow: 0 3px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 0 3px #000000, 0 0 5px #000000;
     top: 0
 }
 footer{
@@ -13,10 +13,15 @@ footer{
     bottom: 0;
     width: 100%;
     background-color: #053742;
+    box-shadow: 0 0 3px #000000, 0 0 5px #000000;
     color: #FFFFFF;
 }
 
 .container {
     padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-bottom: 8rem;
+}
+
+.github-logo {
+    background-color: #FFFFFF;
 }

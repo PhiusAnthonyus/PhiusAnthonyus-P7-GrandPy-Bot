@@ -14,7 +14,10 @@ def content():
     form_user_question = parser.Parser(str(request.args.get("userQuestion")))
     form_address = api.ApiGoogleMaps(form_user_question.parser_parser)
     form_content = api.ApiWikipedia(form_user_question.parser_parser)
-    return render_template("content.html", map=form_address.api_googlemaps_image,
+    # map -> affichage carte (maps), address -> affichage lieu (maps), content -> affichage description (wiki)
+    # user_question_dialogue -> mot-clé parsé
+    return render_template("content.html",
+                           map=form_address.api_googlemaps_image,
                            address=form_address.api_googlemaps_content,
                            content=f"{form_content.api_wikipedia_content}",
                            keyword=form_content.api_wikipedia_keyword,

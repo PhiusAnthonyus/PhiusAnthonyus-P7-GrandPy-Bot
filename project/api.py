@@ -1,7 +1,9 @@
+from project import lists
+import random
 import requests
 import configparser
 
-# Using configparser to parse the config file
+# Utilise configparser pour parser le fichier config
 configParser = configparser.RawConfigParser()
 configFile = r'config.cfg'
 configParser.read(configFile)
@@ -16,6 +18,9 @@ class ApiWikipedia:
         self.api_wikipedia_content = self.get_content()
 
     def get_content(self):
+        """Récupère et récupère le contenu désiré à partir de l'API."""
+        error_text = f"Je ne sais pas où se trouve {self.api_wikipedia_keyword} mon poussin, pourrais-tu " \
+                     f"m'en dire plus ?"
         if self.api_wikipedia_keyword != "":
             result = requests.get(self.api_wikipedia_url)
             if result.status_code == 200:
@@ -26,7 +31,13 @@ class ApiWikipedia:
                     content = str(content["query"]["pages"][pageid]["extract"])
                     if content != "":
                         content = str(content.split(".")[0:2])[2:-2]  # Nb de phrases voulues.
-                        return content
+                        return f"{random.choice(lists.grandpy_wiki_desc)}{content}"
+                    else:
+                        return error_text
+                else:
+                    return error_text
+        else:
+            return "Je n'ai pas compris ce que tu m'as dit mon poussin"
 
 
 class ApiGoogleMaps:
@@ -38,24 +49,31 @@ class ApiGoogleMaps:
         self.api_googlemaps_image = self.get_map()
 
     def get_content(self):
+        """Récupère et récupère le contenu désiré à partir de l'API."""
         if self.api_googlemaps_keyword != "":
             result = requests.get(self.api_googlemaps_url)
             if result.status_code == 200:
                 content = result.json()
                 print(self.api_googlemaps_url)
+                error_text = f"Je ne sais pas où se trouve {self.api_googlemaps_keyword} mon poussin, pourrais-tu " \
+                             f"m'en dire plus ?"
                 if content['results']:
                     content = content["results"][0]['formatted_address']
                     print(content)
-                    return content
+                    return f"{random.choice(lists.grandpy_map_desc)}{content}"
                 else:
-                    return f"Je ne sais pas où se trouve {self.api_googlemaps_keyword} mon poussin, pourrais-tu m'en " \
-                           f"dire plus ? "
+                    return error_text
+        else:
+            return "Je n'ai pas compris ce que tu m'as dit mon poussin"
 
     def get_map(self):
+        """Génère la carte statique du lieu recherché."""
         address = self.api_googlemaps_content
-        address = address.replace(" ", "+")
+        error_text = f"Je ne sais pas où se trouve {self.api_googlemaps_keyword} mon poussin, pourrais-tu " \
+                     f"m'en dire plus ?"
         print(address)
-        if address != "Je+ne+sais+pas+où+se+trouve+OpenClassrooms+mon+poussin,+pourrais-tu+m'en+dire+plus+?":
+        if address != error_text:
+            address = address.replace(" ", "+")
             image = f"https://maps.googleapis.com/maps/api/staticmap?center={address}&zoom=13&" \
                 f"size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147," \
                 f"-74.015794&markers=color:green%7Clabel:G%7C40.711614," \
@@ -63,7 +81,7 @@ class ApiGoogleMaps:
             print(image)
             return image
         else:
-            return "none"
+            return "static/image.png"
 
 
 if __name__ == "__main__":
