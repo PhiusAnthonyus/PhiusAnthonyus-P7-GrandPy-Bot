@@ -1,5 +1,5 @@
 import requests
-from project import api
+from project import api, lists
 
 api_wk = api.ApiWikipedia("Toulouse")
 api_gm = api.ApiGoogleMaps("OpenClassrooms Paris")
@@ -14,7 +14,7 @@ def test_api_wikipedia(monkeypatch):
     monkeypatch.setattr(requests, 'get', mock_api_wikipedia)
     assert api_wk.api_wikipedia_keyword == "Toulouse"
     assert api_wk.api_wikipedia_url == "https://fr.wikipedia.org/w/api.php?format=json&action=query&prop=extracts" \
-                                       "&exintro=&explaintext=&titles=Toulouse "
+                                       "&exintro=&explaintext=&titles=Toulouse"
 
 
 def test_api_googlemaps(monkeypatch):

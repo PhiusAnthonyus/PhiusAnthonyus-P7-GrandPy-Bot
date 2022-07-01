@@ -18,7 +18,6 @@ class Parser:
                 result.append(keyword)
         result = " ".join(result)
         result = result.replace(" ", "_")
-        print(result)
         return result
 
 

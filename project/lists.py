@@ -1,3 +1,5 @@
+import random
+
 # Base de stop words modifiée pour le projet.
 list_words = ["a", "abord", "absolument", "adresse", "afin", "ah", "ai", "aie", "ailleurs", "ainsi", "ait",
               "allaient", "allo", "allons", "allô", "alors", "anterieur", "anterieure", "anterieures", "apres", "après",
@@ -78,3 +80,8 @@ grandpy_map_desc = [
     "N'hesite pas à y faire un tour, il se situe ici : ",
     "C'est un endroit tres sympa ! N'hesite pas t'y rendre, c'est là : ",
 ]
+
+
+def random_list(list):
+    result = f"{random.choice(list)}"
+    return result
